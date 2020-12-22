@@ -17,9 +17,9 @@ var versionCmd = &cobra.Command{
 }
 
 func showVersions(c *client.Client) {
-	hypervisorVersion, err := c.HypervisorVersion()
-	if err != nil {
-		fmt.Printf("Unable to get hypervisor version: %v\n", err)
-	}
-	fmt.Printf("hypervisor v%d\n", hypervisorVersion)
+	hypervisorVersion, _ := c.HypervisorVersion()
+	fmt.Printf("hypervisor: %s\n", hypervisorVersion)
+
+	libvirtdVersion, _ := c.LibvirtDaemonVersion()
+	fmt.Printf("libvirtd  : %s\n", libvirtdVersion)
 }
