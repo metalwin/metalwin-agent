@@ -21,7 +21,7 @@ func NewClient(config config.ConnectionConfig) (*Client, error) {
 	return &Client{conn, config}, nil
 }
 
-// Version of the hypervisor
-func (c *Client) Version() (uint32, error) {
+// HypervisorVersion returns the version of the hypervisor
+func (c *Client) HypervisorVersion() (uint32, error) {
 	return c.conn.GetVersion()
 }
