@@ -19,6 +19,11 @@ type LibvirtClient interface {
 	Close() (int, error)
 	GetVersion() (uint32, error)
 	GetLibVersion() (uint32, error)
+	ListAllDomains() ([]Domain, error)
+}
+
+type Domain interface {
+	GetName() (string, error)
 }
 
 // NewConnection creates a connection to the libvirt daemon using the given
@@ -54,4 +59,18 @@ func (c *LibvirtConnection) GetLibVersion() (uint32, error) {
 		return 0, errAgentNotConnected
 	}
 	return c.conn.GetLibVersion()
+}
+
+// ListAllDomains retrieve the list of domains based on the given filter
+func (c *LibvirtConnection) ListAllDomains() ([]Domain, error) {
+	flags := libvirt.CONNECT_LIST_DOMAINS_PERSISTENT | libvirt.CONNECT_LIST_DOMAINS_TRANSIENT
+	domains, err := c.conn.ListAllDomains(flags)
+	if err != nil {
+		return nil, err
+	}
+	result := make([]Domain, len(domains))
+	for idx, domain := range domains {
+		result[idx] = &domain
+	}
+	return result, nil
 }

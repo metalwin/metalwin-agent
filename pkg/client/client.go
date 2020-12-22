@@ -11,6 +11,7 @@ import (
 type Client struct {
 	conn   libvirt.LibvirtClient
 	config config.ConnectionConfig
+	Domain *domainService
 }
 
 // NewClient generates a client to interact with the libvirt daemon in
@@ -20,7 +21,8 @@ func NewClient(config config.ConnectionConfig) (*Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &Client{conn, config}, nil
+	domainService := domainService{conn: conn}
+	return &Client{conn, config, &domainService}, nil
 }
 
 // HypervisorVersion returns the version of the hypervisor

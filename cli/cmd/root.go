@@ -22,6 +22,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&driver, "driver", "d", "qemu", "Driver used to connect to the libvirt daemon")
 	rootCmd.PersistentFlags().StringVarP(&path, "path", "p", "system", "Path used when connect to the libvirt daemon")
 	rootCmd.AddCommand(versionCmd)
+	rootCmd.AddCommand(domainCmd)
 }
 
 // Execute the CLI
