@@ -12,6 +12,7 @@ var versionCmd = &cobra.Command{
 	Short: "Show the version of all components",
 	Run: func(cmd *cobra.Command, args []string) {
 		c := createClient()
+		defer c.Close()
 		showVersions(c)
 	},
 }

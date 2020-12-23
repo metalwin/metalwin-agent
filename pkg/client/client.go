@@ -50,3 +50,8 @@ func transformVersion(version uint32) string {
 	version -= minor * 1_000
 	return fmt.Sprintf("%d.%d.%d", major, minor, version)
 }
+
+// Close releases all resources from this client
+func (c *Client) Close() (int, error) {
+	return c.conn.Close()
+}

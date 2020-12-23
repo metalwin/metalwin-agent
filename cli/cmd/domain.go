@@ -18,6 +18,7 @@ var domainLsCmd = &cobra.Command{
 	Short: "List all domains",
 	Run: func(cmd *cobra.Command, args []string) {
 		c := createClient()
+		defer c.Close()
 		listDomains(c)
 	},
 }
