@@ -9,7 +9,7 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "metalwin-agent",
+	Use:   "mwcli",
 	Short: "MetalWin agent CLI",
 }
 

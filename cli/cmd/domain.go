@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/metalwin/metalwin-agent/pkg/client"
 	"github.com/spf13/cobra"
@@ -26,9 +27,10 @@ func init() {
 }
 
 func listDomains(c *client.Client) {
-	domains, _ := c.Domain.ListAll()
+	domains, _ := c.Domain.ListRaw()
 	for _, domain := range domains {
-		name, _ := domain.GetName()
-		fmt.Println(name)
+		uuid := strings.TrimSpace(domain.UUID)
+		fmt.Printf("%s\t%s\t%s\t%d %s\t%d vCpu\n",
+			uuid, domain.Name, domain.OS.Type.Arch, domain.Memory.Value, domain.Memory.Unit, domain.VCPU.Value)
 	}
 }

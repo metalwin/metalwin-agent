@@ -22,8 +22,10 @@ type LibvirtClient interface {
 	ListAllDomains() ([]Domain, error)
 }
 
+// Domain from the host
 type Domain interface {
 	GetName() (string, error)
+	GetXMLDesc(flags libvirt.DomainXMLFlags) (string, error)
 }
 
 // NewConnection creates a connection to the libvirt daemon using the given
